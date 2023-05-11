@@ -9,12 +9,17 @@ import XCTest
 @testable import NewsAppSwiftUI
 
 final class NewsAppSwiftUITests: XCTestCase {
+    var apiClient: ContentfulClient?
+    
 
     override func setUpWithError() throws {
+        apiClient = ContentfulClient.shared
         // Put setup code here. This method is called before the invocation of each test method in the class.
     }
+    
 
     override func tearDownWithError() throws {
+        apiClient = nil
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
@@ -31,6 +36,13 @@ final class NewsAppSwiftUITests: XCTestCase {
         self.measure {
             // Put the code you want to measure the time of here.
         }
+    }
+    
+    func testApi(){
+        apiClient?.fetchBlogPosts { result in
+            print(result)
+            XCTAssertNotNil(result)
+            }
     }
 
 }
